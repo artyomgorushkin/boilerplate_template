@@ -1,4 +1,5 @@
-const breakpointsList = [
+(function() {
+  const breakpointsList = [
   {name: 'mobile', min: 0, max: 479},
   {name: 'wide-mobile', min: 480, max: 767},
   {name: 'tablet', min: 768, max: 991},
@@ -7,40 +8,55 @@ const breakpointsList = [
   {name: 'desktop-full', min: 1600, max: 25000},
 ]
 
-const showData = (name) => {
-  const element = document.querySelector('.js-span');
-  element.textContent = name;
+const createVarList = (list) => {
+  let result = {};
+  list.forEach(element => {
+    result[element] = document.querySelector('.' + element);
+  });
+  return result;
+};
+
+const html = '<div class="row row--top"></div><div class="row row--mid"><span class="js_min value value--min center ">320px</span><span class="js_name name center">Desktop</span><span class="js_max value value--max center ">479px</span></div><div class="row row--bot"><div class="conrol center">0</div><div class="conrol center">50</div><div class="conrol center">100</div><div class="conrol center"></div></div>';
+
+const htmlClassList = [
+  'js_min', 
+  'js_max', 
+  'js_name', 
+  'js_menu',
+]
+
+let varList;
+
+const showData = () => {
+  const screenName = findName(breakpointsList);
+  varList.js_name.textContent = screenName;
+  varList.js_min.textContent = 
 }
 
-const windowSizeHandler = () => {
-  const screenWidth = document.documentElement.clientWidth;
-  const screenName = findName(breakpointsList, screenWidth);
-  showData(screenName);
-}
+// const windowSizeHandler = () => {
+//   showData();
+// }
 
 const findName = (array) => {
   const size = document.documentElement.clientWidth
-  const name = array.filter(n => n.min <= size && n.max > size)[0].name;
+  const name = array.filter(n => n.min <= size && n.max >= size)[0].name;
+  console.log(name);
   return name;
 };
 
-const createSpan = (name) => {
+const createSpan = () => {
   const fragment = document.createDocumentFragment();
   const block = document.createElement('div');
-  const span = document.createElement('span');
   block.classList.add('js_window');
-  span.classList.add('js_span');
-  span.textContent = name;
-  block.innerHTML = '<p></p>';
-  block.appendChild(span);
+  block.innerHTML = html;
   fragment.appendChild(block);
   document.body.appendChild(fragment);
-  console.log(span);
+  varList = createVarList(htmlClassList);
+  showData();
 }
 
-const screenName = findName(breakpointsList);
 
-createSpan(screenName);
-showData(screenName);
+createSpan();
+window.addEventListener('resize', showData);
 
-window.addEventListener('resize', windowSizeHandler);
+})();
