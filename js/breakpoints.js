@@ -30,7 +30,7 @@ let varList;
 const showData = () => {
   const screenName = findName(breakpointsList);
   varList.js_name.textContent = screenName;
-  varList.js_min.textContent = 
+  // varList.js_min.textContent = 
 }
 
 // const windowSizeHandler = () => {
