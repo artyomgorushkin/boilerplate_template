@@ -342,18 +342,13 @@ template {
   display: none;
 }
 
-@font-face {
-  font-family: 'Lemon/Milk Regular';
-  font-style: normal;
-  font-weight: normal;
-  src: local("Lemon/Milk Regular"), url("../fonts/LemonMilk.woff") format("woff"), url("../fonts/LemonMilk.woff2") format("woff2");
-}
-
 html {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  font-size: 16px;
 }
 
+/* Указываем box sizing */
 *,
 *::before,
 *::after {
@@ -366,31 +361,37 @@ a {
   color: inherit;
 }
 
+/* Убираем внутренние отступы */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+/* Убираем внешние отступы */
 body,
 h1,
 h2,
 h3,
 h4,
-h5,
-h6,
-ul,
-ol,
-li,
 p,
-pre,
-blockquote,
+ul[class],
+ol[class],
+li,
 figure,
-hr {
+figcaption,
+blockquote,
+dl,
+dd {
   margin: 0;
-  padding: 0;
 }
 
-ul {
+/* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
+ul[class],
+ol[class] {
   list-style: none;
-  padding: 0;
-  margin: 0;
 }
 
+/* Наследуем шрифты для инпутов и кнопок */
 input,
 textarea,
 select,
@@ -400,6 +401,7 @@ button {
   letter-spacing: inherit;
 }
 
+/* Упрощаем работу с изображениями и прочей ерундой*/
 embed,
 iframe,
 img,
@@ -411,24 +413,6 @@ video {
 
 [hidden] {
   display: none;
-}
-
-/* select */
-/* select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-} */
-/* select::-ms-expand {
-  display: none;
-} */
-.table {
-  display: table;
-}
-
-.table-cell {
-  vertical-align: middle;
-  display: table-cell;
 }
 
 .clearfix:after {
@@ -518,96 +502,17 @@ select::-ms-expand {
 body {
   min-width: 320px;
   width: 100%;
-  height: 2000px;
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  font-family: "Roboto", sans-serif;
 }
 
 .wrapper {
   max-width: 1600px;
   width: 100%;
   margin: 0 auto;
-}
-
-/* Указываем box sizing */
-*,
-*::before,
-*::after {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-/* Убираем внутренние отступы */
-ul[class],
-ol[class] {
-  padding: 0;
-}
-
-/* Убираем внешние отступы */
-body,
-h1,
-h2,
-h3,
-h4,
-p,
-ul[class],
-ol[class],
-li,
-figure,
-figcaption,
-blockquote,
-dl,
-dd {
-  margin: 0;
-}
-
-/* Выставляем основные настройки по-умолчанию для body */
-body {
-  min-height: 100vh;
-  scroll-behavior: smooth;
-  text-rendering: optimizeSpeed;
-  line-height: 1.5;
-}
-
-/* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
-ul[class],
-ol[class] {
-  list-style: none;
-}
-
-/* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
-a:not([class]) {
-  text-decoration-skip-ink: auto;
-}
-
-/* Упрощаем работу с изображениями */
-img {
-  max-width: 100%;
-  display: block;
-}
-
-/* Указываем понятную периодичность в потоке данных у article*/
-article > * + * {
-  margin-top: 1em;
-}
-
-/* Наследуем шрифты для инпутов и кнопок */
-input,
-button,
-textarea,
-select {
-  font: inherit;
-}
-
-/* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    -webkit-animation-duration: 0.01ms !important;
-            animation-duration: 0.01ms !important;
-    -webkit-animation-iteration-count: 1 !important;
-            animation-iteration-count: 1 !important;
-    -webkit-transition-duration: 0.01ms !important;
-            transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
 }
 
 .js_window {
@@ -628,6 +533,7 @@ select {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  font-family: 'Roboto', sans-serif;
 }
 
 .js_window .row {
@@ -638,6 +544,7 @@ select {
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
+  line-height: 2rem;
 }
 
 .js_window .row--bot {
@@ -645,8 +552,20 @@ select {
   border: 1px solid red;
 }
 
+.js_window span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .js_window .value {
-  width: 25%;
+  width: 20%;
   -webkit-box-flex: 0;
       -ms-flex-positive: 0;
           flex-grow: 0;
@@ -660,27 +579,50 @@ select {
       -ms-flex-positive: 1;
           flex-grow: 1;
   line-height: 35px;
+  cursor: pointer;
 }
 
 .js_window .conrol {
   width: 25%;
   height: 100%;
   border-right: 1px solid red;
+  cursor: pointer;
+}
+
+.js_window .conrol:hover {
+  background: red;
 }
 
 .js_window .js_hide {
+  opacity: 1 !important;
+  background: black;
+}
+
+.js_window .left,
+.js_window .right {
+  width: 25%;
+}
+
+.js_window .mid {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.js_window--min {
+  width: 150px;
+}
+
+.js_window--min .left,
+.js_window--min .right {
   display: none;
 }
 
-.js_window .center {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+.js_window--min .value {
+  display: none;
+}
+
+.js_window--min .row--bot {
+  display: none;
 }
 /*# sourceMappingURL=style.css.map */

@@ -9,11 +9,13 @@
   justify-content: center;
   display: flex;
   flex-direction: column;
+  font-family: 'Roboto', sans-serif;
 
   .row {
     display: flex;
     align-items: center;
     width: 100%;
+    line-height: 2rem;
 
     &--bot {
       height: 30px;
@@ -21,8 +23,14 @@
     }
   }
 
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .value {
-    width: 25%;
+    width: 20%;
     flex-grow: 0;
   }
 
@@ -32,28 +40,49 @@
     font-size: 25px;
     flex-grow: 1;
     line-height: 35px;
+    cursor: pointer;
   }
 
   .conrol {
     width: 25%;
     height: 100%;
     border-right: 1px solid red;
+    cursor: pointer;
+
+    &:hover {
+      background: red;
+    }
   }
 
   .js_hide {
-    display: none;
+    // display: none;
+    opacity: 1 !important;
+    background: black;
   }
 
-  .center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .left,
+  .right {
+    width: 25%;
   }
 
+  .mid {
+    flex-grow: 1;
+  }
 
+  &--min {
+    width: 150px;
 
+    .left,
+    .right {
+      display: none;
+    }
 
+    .value {
+      display: none;
+    }
 
-
-
+    .row--bot {
+      display: none;
+    }
+  }
 }
